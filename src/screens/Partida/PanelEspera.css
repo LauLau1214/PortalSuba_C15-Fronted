@@ -1,0 +1,136 @@
+.pe-velo {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 5, 3, 0.55);
+  font-family: 'Silkscreen', monospace;
+  color: #f1dfb8;
+}
+
+.pe-panel {
+  width: calc(var(--u) * 62);
+  max-height: calc(100cqh - var(--u) * 10);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 1.4);
+  padding: calc(var(--u) * 2.6) calc(var(--u) * 3);
+  background: #1c140e;
+  border: calc(var(--u) * 0.3) solid #c9963c;
+  box-shadow: 0 0 0 calc(var(--u) * 0.3) #000, 0 calc(var(--u) * 1) calc(var(--u) * 3) #000c;
+}
+.pe-panel--cuenta { border-color: #5fbf4a; box-shadow: 0 0 0 calc(var(--u) * 0.3) #000, 0 0 calc(var(--u) * 3) #5fbf4a66; }
+
+.pe-titulo {
+  margin: 0;
+  text-align: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 1.7);
+  color: #f0b54a;
+  letter-spacing: calc(var(--u) * 0.15);
+}
+
+/* Código */
+.pe-codigo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 1.5);
+  padding: calc(var(--u) * 1) calc(var(--u) * 1.4);
+  background: #120b06;
+  border: calc(var(--u) * 0.2) dashed #c9963c;
+}
+.pe-codigo__info { display: flex; flex-direction: column; gap: calc(var(--u) * 0.4); }
+.pe-codigo__etq { font-size: calc(var(--u) * 1); color: #c9963c; }
+.pe-codigo__valor {
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 2.4);
+  color: #f6d98a;
+  letter-spacing: calc(var(--u) * 0.4);
+  text-shadow: 0 0 calc(var(--u) * 0.8) #e8b84a77;
+}
+
+.pe-regla { margin: 0; text-align: center; font-size: calc(var(--u) * 1.15); line-height: 1.6; }
+
+.pe-cuenta { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.6); }
+.pe-cuenta__num {
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 5);
+  color: #7fd85f;
+  text-shadow: 0 0 calc(var(--u) * 1.5) #5fbf4a;
+  animation: pe-latido 1s ease-in-out infinite;
+}
+.pe-cuenta__txt { font-size: calc(var(--u) * 1); opacity: 0.8; }
+@keyframes pe-latido { 50% { transform: scale(1.12); } }
+
+.pe-contador { text-align: center; font-size: calc(var(--u) * 1.2); color: #c9963c; }
+.pe-contador b { color: #f6d98a; font-weight: normal; }
+
+/* Equipos */
+.pe-equipos { display: grid; grid-template-columns: repeat(auto-fit, minmax(calc(var(--u) * 24), 1fr)); gap: calc(var(--u) * 1.2); }
+.pe-equipo {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 0.8);
+  padding: calc(var(--u) * 1) calc(var(--u) * 1.2);
+  border: calc(var(--u) * 0.2) solid #6b5233;
+  background: #140d08;
+}
+.pe-equipo--mio { border-color: #c9963c; }
+.pe-equipo--listo { box-shadow: inset 0 0 0 calc(var(--u) * 0.15) #5fbf4a; }
+.pe-equipo__cab { display: flex; justify-content: space-between; font-size: calc(var(--u) * 1.1); color: #f0b54a; }
+.pe-equipo__cupo { color: #f1dfb8; opacity: 0.7; }
+.pe-equipo__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--u) * 0.5); }
+
+.pe-jugador { display: flex; justify-content: space-between; gap: calc(var(--u) * 1); font-size: calc(var(--u) * 1.05); }
+.pe-jugador__estado { color: #d5463a; }
+.pe-jugador--listo .pe-jugador__nombre,
+.pe-jugador--listo .pe-jugador__estado { color: #7fd85f; }
+.pe-jugador--vacio { opacity: 0.45; }
+
+.pe-cambiar {
+  align-self: flex-start;
+  font-family: 'Silkscreen', monospace;
+  font-size: calc(var(--u) * 0.95);
+  color: #f0b54a;
+  background: none;
+  border: calc(var(--u) * 0.15) solid #c9963c;
+  padding: calc(var(--u) * 0.3) calc(var(--u) * 0.8);
+  cursor: pointer;
+}
+.pe-cambiar:hover:not(:disabled) { background: #c9963c22; }
+.pe-cambiar:disabled { opacity: 0.5; cursor: wait; }
+
+/* Diagnóstico */
+.pe-motivos {
+  padding: calc(var(--u) * 0.9) calc(var(--u) * 1.2);
+  border-left: calc(var(--u) * 0.4) solid #d5463a;
+  background: #d5463a14;
+  font-size: calc(var(--u) * 1);
+}
+.pe-motivos__titulo { color: #ff7a6b; }
+.pe-motivos ul { margin: calc(var(--u) * 0.5) 0 0; padding-left: calc(var(--u) * 1.6); line-height: 1.6; }
+
+.pe-aviso { margin: 0; text-align: center; color: #ff7a6b; font-size: calc(var(--u) * 1.1); }
+
+/* Botones */
+.pe-botones { display: flex; justify-content: center; gap: calc(var(--u) * 1.4); }
+.pe-boton {
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 1.05);
+  padding: calc(var(--u) * 1) calc(var(--u) * 2);
+  border: calc(var(--u) * 0.25) solid #000;
+  box-shadow: inset 0 calc(var(--u) * -0.4) 0 #0006, 0 calc(var(--u) * 0.35) 0 #000c;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
+}
+.pe-boton:hover:not(:disabled) { filter: brightness(1.15); }
+.pe-boton:active:not(:disabled) { transform: translateY(calc(var(--u) * 0.25)); }
+.pe-boton:disabled { opacity: 0.5; cursor: not-allowed; }
+.pe-boton--chico { font-size: calc(var(--u) * 0.9); padding: calc(var(--u) * 0.7) calc(var(--u) * 1.2); }
+.pe-boton--verde { background: linear-gradient(#7fd85f, #3f9a2e); color: #10240b; }
+.pe-boton--gris { background: linear-gradient(#8a7f72, #4d453c); color: #f1dfb8; }
+.pe-boton--cafe { background: linear-gradient(#b0703a, #7a4720); color: #f1dfb8; }
+.pe-boton--oro { background: linear-gradient(#f6d98a, #b9852c); color: #2a1a10; }

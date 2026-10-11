@@ -1,0 +1,239 @@
+/* La pantalla ocupa todo el alto y hace scroll vertical si el contenido no cabe */
+.rs-root {
+  position: fixed;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  container-type: size;
+  --u: min(1cqw, 1.78cqh);
+  --oro: #e8b84a;
+  --oro-claro: #f6d98a;
+  --oro-osc: #8a5a1c;
+  --madera: #2a1a10;
+  --madera-2: #3b2615;
+  --crema: #f1dfb8;
+  --verde: #5fbf4a;
+  --rojo: #d5463a;
+  font-family: 'Silkscreen', monospace;
+  color: var(--crema);
+  background: #0d0a08;
+  scrollbar-width: thin;
+  scrollbar-color: var(--oro-osc) transparent;
+}
+
+/* Fondo y velo quedan fijos mientras se hace scroll */
+.rs-fondo {
+  position: fixed;
+  inset: 0;
+  background-image: var(--rs-fondo);
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+}
+.rs-velo {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(13, 10, 8, 0.35) 0%, rgba(13, 10, 8, 0.82) 75%);
+}
+
+/* ---------- Botones de esquina (fijos) ---------- */
+.rs-esquina {
+  position: fixed;
+  z-index: 3;
+  width: calc(var(--u) * 4.6);
+  height: calc(var(--u) * 4.6);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(var(--madera-2), var(--madera));
+  border: calc(var(--u) * 0.35) solid var(--oro-osc);
+  box-shadow: inset 0 0 0 calc(var(--u) * 0.2) var(--oro), 0 calc(var(--u) * 0.4) 0 #000a;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
+}
+.rs-esquina:hover { filter: brightness(1.2); transform: translateY(calc(var(--u) * -0.15)); }
+.rs-esquina:active { transform: translateY(calc(var(--u) * 0.2)); }
+.rs-esquina__icono { width: 55%; height: 55%; color: var(--oro-claro); }
+.rs-esquina--izq { top: calc(var(--u) * 2); left: calc(var(--u) * 2); }
+.rs-esquina--der { top: calc(var(--u) * 2); right: calc(var(--u) * 2); }
+.rs-esquina--abajo { bottom: calc(var(--u) * 2); right: calc(var(--u) * 2); }
+
+/* ---------- Panel central (fluye con el scroll) ---------- */
+.rs-panel {
+  position: relative;
+  z-index: 2;
+  width: calc(var(--u) * 74);
+  max-width: calc(100cqw - var(--u) * 14);
+  margin: calc(var(--u) * 5) auto calc(var(--u) * 4);
+  padding: calc(var(--u) * 3.6) calc(var(--u) * 4) calc(var(--u) * 3);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 1.6);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(var(--u) * 6), #0002 calc(var(--u) * 6) calc(var(--u) * 6.2)),
+    linear-gradient(var(--madera-2), var(--madera));
+  border: calc(var(--u) * 0.6) solid var(--oro-osc);
+  box-shadow:
+    inset 0 0 0 calc(var(--u) * 0.3) var(--oro),
+    inset 0 0 calc(var(--u) * 4) #000a,
+    0 0 calc(var(--u) * 3) #e8b84a55,
+    0 calc(var(--u) * 1) 0 #000c;
+  animation: rs-entrar 0.5s ease-out both;
+}
+.rs-panel--derrota {
+  box-shadow:
+    inset 0 0 0 calc(var(--u) * 0.3) var(--oro),
+    inset 0 0 calc(var(--u) * 4) #000a,
+    0 0 calc(var(--u) * 3) #d5463a44,
+    0 calc(var(--u) * 1) 0 #000c;
+}
+
+@keyframes rs-entrar {
+  from { opacity: 0; transform: translateY(calc(var(--u) * 2)) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.rs-llave {
+  position: absolute;
+  top: calc(var(--u) * -3.2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--u) * 6);
+  height: calc(var(--u) * 6);
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, var(--madera-2) 55%, var(--madera));
+  border: calc(var(--u) * 0.5) solid var(--oro);
+  border-radius: 50%;
+  box-shadow: 0 0 calc(var(--u) * 1.6) #e8b84a88;
+}
+.rs-llave__icono { width: 60%; height: 60%; color: var(--oro-claro); animation: rs-brillo 2s ease-in-out infinite; }
+@keyframes rs-brillo { 50% { filter: drop-shadow(0 0 calc(var(--u) * 0.6) var(--oro-claro)); } }
+
+.rs-cabecera { text-align: center; }
+.rs-titulo {
+  margin: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 3);
+  color: var(--oro-claro);
+  text-shadow: 0 calc(var(--u) * 0.35) 0 var(--oro-osc), 0 0 calc(var(--u) * 1.5) #e8b84a88;
+  letter-spacing: calc(var(--u) * 0.15);
+}
+.rs-subtitulo { margin: calc(var(--u) * 0.8) 0 0; font-size: calc(var(--u) * 1.4); color: var(--crema); opacity: 0.85; }
+.rs-error { margin: 0; text-align: center; color: var(--rojo); font-size: calc(var(--u) * 1.3); }
+
+/* ---------- Cajas ---------- */
+.rs-fila { display: grid; gap: calc(var(--u) * 1.4); }
+.rs-fila--dos { grid-template-columns: 1fr 1fr; }
+.rs-fila--tres { grid-template-columns: repeat(3, 1fr); }
+
+.rs-caja {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 0.4);
+  padding: calc(var(--u) * 1.1) calc(var(--u) * 1);
+  background: #120b06cc;
+  border: calc(var(--u) * 0.3) solid var(--oro-osc);
+  box-shadow: inset 0 0 0 calc(var(--u) * 0.15) #e8b84a55;
+}
+.rs-caja__etq { font-size: calc(var(--u) * 1.1); color: var(--oro); letter-spacing: calc(var(--u) * 0.1); text-align: center; }
+.rs-caja__valor { font-family: 'Press Start 2P', monospace; font-size: calc(var(--u) * 2.5); color: var(--crema); }
+.rs-caja__valor small { font-size: 0.55em; opacity: 0.75; }
+.rs-caja__valor--oro { color: var(--oro-claro); text-shadow: 0 0 calc(var(--u) * 1) #e8b84a77; }
+.rs-caja__extra { font-size: calc(var(--u) * 1.05); opacity: 0.7; }
+.rs-caja--chica .rs-caja__valor { font-size: calc(var(--u) * 2); }
+
+.rs-sello {
+  font-size: calc(var(--u) * 1);
+  padding: calc(var(--u) * 0.3) calc(var(--u) * 1);
+  border: calc(var(--u) * 0.2) solid currentColor;
+}
+.rs-sello--gana { color: var(--verde); }
+.rs-sello--empate { color: var(--oro-claro); }
+.rs-sello--pierde { color: var(--rojo); }
+
+/* ---------- Jugadores (tarjetas más bajas para que todo quepa) ---------- */
+.rs-jugadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--u) * 14), 1fr));
+  gap: calc(var(--u) * 1.4);
+}
+.rs-jugador {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 0.5);
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 0.8) calc(var(--u) * 0.9);
+  background: linear-gradient(#3b2615, #23160c);
+  border: calc(var(--u) * 0.3) solid var(--oro-osc);
+}
+.rs-jugador--yo { border-color: var(--oro); box-shadow: 0 0 calc(var(--u) * 1) #e8b84a66; }
+.rs-jugador--vacio { opacity: 0.4; border-style: dashed; }
+.rs-jugador__tu {
+  position: absolute;
+  top: calc(var(--u) * -1.1);
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 0.9);
+  padding: calc(var(--u) * 0.35) calc(var(--u) * 0.7);
+  background: var(--oro);
+  color: var(--madera);
+}
+.rs-jugador__avatar {
+  width: calc(var(--u) * 4);
+  height: calc(var(--u) * 4);
+  color: var(--crema);
+  padding: calc(var(--u) * 0.5);
+  background: #120b06;
+  border: calc(var(--u) * 0.25) solid var(--oro-osc);
+}
+.rs-jugador__nombre { font-size: calc(var(--u) * 1.1); text-align: center; word-break: break-word; }
+.rs-jugador__estado {
+  font-size: calc(var(--u) * 0.95);
+  padding: calc(var(--u) * 0.25) calc(var(--u) * 0.8);
+  border: calc(var(--u) * 0.2) solid currentColor;
+}
+.rs-jugador__estado--heroe { color: #6fb6ff; }
+.rs-jugador__estado--verdugo { color: var(--rojo); }
+.rs-jugador__estado--participo { color: var(--verde); }
+
+/* ---------- Tabla de clasificación ---------- */
+.rs-tabla { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--u) * 0.5); }
+.rs-tabla__fila {
+  display: grid;
+  grid-template-columns: 0.5fr 1.2fr 1.3fr 1fr 1.2fr;
+  align-items: center;
+  font-size: calc(var(--u) * 1.05);
+  padding: calc(var(--u) * 0.6) calc(var(--u) * 1.2);
+  background: #120b0699;
+  border-left: calc(var(--u) * 0.4) solid var(--oro-osc);
+}
+.rs-tabla__fila--mio { border-left-color: var(--oro); background: #e8b84a1f; }
+.rs-tabla__pts { text-align: right; color: var(--oro-claro); }
+
+/* ---------- Botones ---------- */
+.rs-botones { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: calc(var(--u) * 1.4); margin-top: calc(var(--u) * 0.4); }
+.rs-boton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 0.3);
+  min-height: calc(var(--u) * 4.6);
+  padding: calc(var(--u) * 0.8);
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--u) * 1.1);
+  line-height: 1.4;
+  cursor: pointer;
+  border: calc(var(--u) * 0.35) solid #000;
+  box-shadow: inset 0 calc(var(--u) * -0.5) 0 #0006, inset 0 calc(var(--u) * 0.3) 0 #fff3, 0 calc(var(--u) * 0.45) 0 #000c;
+  transition: transform 0.1s, filter 0.1s;
+}
+.rs-boton small { font-family: 'Silkscreen', monospace; font-size: calc(var(--u) * 0.85); opacity: 0.8; }
+.rs-boton:hover:not(:disabled) { filter: brightness(1.15); transform: translateY(calc(var(--u) * -0.15)); }
+.rs-boton:active:not(:disabled) { transform: translateY(calc(var(--u) * 0.3)); box-shadow: inset 0 calc(var(--u) * -0.2) 0 #0006, 0 calc(var(--u) * 0.1) 0 #000c; }
+.rs-boton:disabled { cursor: not-allowed; opacity: 0.55; }
+.rs-boton--verde { background: linear-gradient(#7fd85f, #3f9a2e); color: #10240b; }
+.rs-boton--oro { background: linear-gradient(var(--oro-claro), #b9852c); color: var(--madera); }
+.rs-boton--gris { background: linear-gradient(#6b6155, #3d362f); color: var(--crema); }
