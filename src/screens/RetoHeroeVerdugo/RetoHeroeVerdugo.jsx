@@ -6,6 +6,7 @@ import { listarEquipos } from '../../services/salasApi';
 import { gameplayApi } from '../../services/gameplayApi';
 import { Sesion } from '../../services/sesion';
 import { useConexion } from '../../hooks/useSocket';
+import { useNombres } from '../../hooks/useNombres';
 import { useReto, activarDemoReto, esDemoReto, retoActivo } from '../../hooks/useReto';
 import './RetoHeroeVerdugo.css';
 
@@ -66,7 +67,6 @@ export default function RetoHeroeVerdugo() {
 function Arena({ matchId, equipos, roles }) {
   const navegar = useNavigate();
   const userId = Sesion.userId;
-  const username = Sesion.username;
   const conectado = useConexion();
   const miEquipo = equipos.find((e) => e.miembros.includes(userId));
   const rival = equipos.find((e) => e.id !== miEquipo?.id);
@@ -78,7 +78,7 @@ function Arena({ matchId, equipos, roles }) {
   const [aviso, setAviso] = useState('');
   const tAviso = useRef(null);
 
-  const nombreDe = (id) => (id === userId ? username : `JUGADOR ${id.slice(0, 4).toUpperCase()}`);
+  const nombreDe = useNombres(equipos.flatMap((e) => e.miembros));
   const numeroDe = (equipoId) => equipos.find((e) => e.id === equipoId)?.numero ?? '?';
   const activo = retoActivo(reto.estado);
   const terminado = reto.estado === 'TERMINADO';

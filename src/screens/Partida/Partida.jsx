@@ -14,6 +14,7 @@ import { Sesion } from '../../services/sesion';
 import { topics } from '../../config';
 import { useConexion, useSubscription } from '../../hooks/useSocket';
 import { useCronometro } from '../../hooks/useCronometro';
+import { useNombres } from '../../hooks/useNombres';
 import './Partida.css';
 
 const FONDO = '/assets/fondos/Fondo_mapa.jpeg';
@@ -77,10 +78,7 @@ export default function Partida() {
 
   const miPos = posiciones[userId];
 
-  const nombreDe = useCallback(
-    (id) => (id === userId ? username : `JUGADOR ${id.slice(0, 4).toUpperCase()}`),
-    [userId, username]
-  );
+  const nombreDe = useNombres([...(equipo?.miembros ?? []), ...Object.keys(posiciones)]);
 
   function avisar(texto) {
     setAviso(texto);
