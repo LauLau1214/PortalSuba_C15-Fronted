@@ -19,17 +19,16 @@ export default function Login() {
   const navigate = useNavigate();
   const conectado = useConexion();
   const [usuario, setUsuario] = useState('');
-  const [clave, setClave] = useState(''); // el back del sprint 1 solo usa el username
-  const [estado, setEstado] = useState('esperando'); // esperando | verificando | error | ok
+  const [clave, setClave] = useState('');
+  const [estado, setEstado] = useState('esperando');
   const [mensaje, setMensaje] = useState('');
   const [salasActivas, setSalasActivas] = useState(null);
 
-  // Si ya hay sesión en esta pestaña, directo al home
   useEffect(() => {
     if (authApi.sesionActual()) navigate('/home', { replace: true });
   }, [navigate]);
 
-  // Contador de salas en tiempo real: carga inicial + /topic/rooms
+  // Contador de salas en tiempo real
   useEffect(() => {
     salasApi.listar().then((s) => setSalasActivas(s.length)).catch(() => {});
   }, []);

@@ -40,7 +40,6 @@ export default function CrearSala() {
     if (!userId) navegar('/');
   }, [userId, navegar]);
 
-  // Catálogo en vivo para validar que el nombre no esté repetido
   useEffect(() => {
     listarSalas().then(setSalas).catch(() => {});
   }, []);
@@ -56,7 +55,7 @@ export default function CrearSala() {
   function cambiarTematica(paso) {
     const i = (tematica + paso + TEMATICAS.length) % TEMATICAS.length;
     setTematica(i);
-    setDificultad(TEMATICAS[i].dificultad); // la dificultad sugerida se aplica al cambiar
+    setDificultad(TEMATICAS[i].dificultad);
   }
 
   async function crear() {
@@ -65,15 +64,11 @@ export default function CrearSala() {
 
     setError('');
     setCreando(true);
-    try {
-      // 1. Crear (el back la crea con 2 equipos x 4 por defecto)
+    try{
       const sala = await crearSala(nombreLimpio, userId);
-      // 2. Ajustar cupo si cambió
       if (jugadores !== 4) await configurarSala(sala.id, userId, NUM_EQUIPOS, jugadores);
-      // 3. El back no mete al anfitrión automáticamente
       await unirseASala(sala.id, userId);
 
-      // Lo que el back aún no guarda (temática, tiempo, dificultad, visibilidad)
       Sesion.guardar('salaId', sala.id);
       Sesion.guardar('configSala', {
         salaId: sala.id,
@@ -116,7 +111,7 @@ export default function CrearSala() {
         <h1 className="cs-titulo">CREAR SALA</h1>
 
         <div className="cs-cuerpo">
-          {/* ============ COLUMNA IZQUIERDA ============ */}
+          {/* COLUMNA IZQUIERDA */}
           <div className="cs-col">
             <section className="cs-panel cs-panel-izq">
               <span className="remache tl" /><span className="remache tr" />
@@ -181,7 +176,7 @@ export default function CrearSala() {
             </div>
           </div>
 
-          {/* ============ COLUMNA DERECHA ============ */}
+          {/* COLUMNA DERECHA */}
           <div className="cs-col">
             <section className="cs-panel cs-panel-der">
               <span className="remache tl" /><span className="remache tr" />

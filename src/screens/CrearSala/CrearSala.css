@@ -17,7 +17,7 @@
   --cs-calavera: #e3d1a8;
   --cs-calavera-off: #5e554a;
   --cs-fuente: 'Silkscreen', monospace;
-  --cs-fuente-titulo: 'Press Start 2P', monospace; /* solo textos sin tildes */
+  --cs-fuente-titulo: 'Press Start 2P', monospace;
 
   position: fixed;
   inset: 0;
@@ -42,7 +42,7 @@
 .cs-stage p { margin: 0; }
 .cs-stage .icono-px { width: 1em; height: 1em; flex: none; }
 
-/* ================= ESQUINAS ================= */
+/*ESQUINAS*/
 .cs-esquina {
   position: absolute;
   width: calc(var(--u) * 3.6);
@@ -67,7 +67,7 @@
 .cs-bl { bottom: calc(var(--u) * 1.2); left: calc(var(--u) * 1.2); }
 .cs-br { bottom: calc(var(--u) * 1.2); right: calc(var(--u) * 1.2); }
 
-/* ================= TÍTULO ================= */
+/*TÍTULO*/
 .cs-titulo {
   position: absolute;
   top: calc(var(--u) * 2.2);
@@ -86,7 +86,7 @@
     calc(var(--u) * 0.45) calc(var(--u) * 0.45) 0 #120b06;
 }
 
-/* ================= CUERPO (2 columnas) ================= */
+/*CUERPO*/
 .cs-cuerpo {
   position: absolute;
   top: calc(50% + var(--u) * 3);
@@ -100,7 +100,7 @@
 }
 .cs-col { display: flex; flex-direction: column; }
 
-/* --- Panel base --- */
+/*Panel base*/
 .cs-panel {
   position: relative;
   padding: calc(var(--u) * 1.6) calc(var(--u) * 1.8);
@@ -131,7 +131,7 @@
 .cs-nota { font-size: calc(var(--u) * 0.72); color: var(--cs-crema-tenue); }
 .cs-nota-clara { font-size: calc(var(--u) * 0.9); color: var(--cs-crema); }
 
-/* --- Nombre --- */
+/*Nombre*/
 .cs-input {
   display: flex;
   align-items: center;
@@ -165,7 +165,7 @@
 }
 .cs-ayuda.is-error { color: #e8603c; }
 
-/* --- Carrusel de temáticas --- */
+/*Carrusel de temáticas*/
 .cs-carrusel {
   display: grid;
   grid-template-columns: calc(var(--u) * 3.4) 1fr calc(var(--u) * 3.4);
@@ -241,7 +241,7 @@
 .cs-mini-calaveras .icono-px { color: var(--cs-calavera-off); }
 .cs-mini-calaveras .icono-px.llena { color: var(--cs-calavera); }
 
-/* --- Botón crear --- */
+/*Botón crear*/
 .cs-panel-boton {
   align-self: center;
   width: 72%;
@@ -277,7 +277,7 @@
   color: #e8603c;
 }
 
-/* ================= CONFIGURACIÓN ================= */
+/*CONFIGURACIÓN*/
 .cs-panel-der { padding-top: calc(var(--u) * 3); }
 .cs-pestana {
   position: absolute;
@@ -344,7 +344,7 @@
 .cs-calaveras button.llena { color: var(--cs-calavera) !important; }
 .cs-calaveras button:hover { transform: translateY(calc(var(--u) * -0.15)); }
 
-/* --- Resumen --- */
+/*Resumen*/
 .cs-resumen {
   position: relative;
   margin-top: calc(var(--u) * 2.2);

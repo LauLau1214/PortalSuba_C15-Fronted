@@ -16,7 +16,7 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
   const username = Sesion.username;
 
   const [detalle, setDetalle] = useState(null);
-  const [cuenta, setCuenta] = useState(null);       // segundos de la cuenta regresiva
+  const [cuenta, setCuenta] = useState(null);
   const [ocupado, setOcupado] = useState(false);
   const [aviso, setAviso] = useState(null);
   const [copiado, setCopiado] = useState(false);
@@ -65,7 +65,7 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
     return () => clearTimeout(t);
   }, [cuenta]);
 
-  // ---------- Derivados ----------
+  // Derivados
   const equipos = useMemo(
     () => [...(detalle?.equipos ?? [])].sort((a, b) => a.numero - b.numero),
     [detalle]
@@ -77,7 +77,6 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
   const totalJugadores = detalle?.jugadores?.length ?? 0;
   const totalListos = equipos.reduce((n, e) => n + (e.listos?.length ?? 0), 0);
 
-  // Mismas reglas que Sala.listaParaIniciar del back
   const motivos = useMemo(() => {
     if (!detalle) return [];
     const r = [];
@@ -92,10 +91,9 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
     const faltan = conJugadores.flatMap((e) => e.miembros.filter((m) => !(e.listos ?? []).includes(m)));
     if (faltan.length) r.push(`FALTA MARCAR LISTO: ${faltan.map(nombreDe).join(', ')}`);
     return r;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detalle, equipos]);
 
-  // ---------- Acciones ----------
+  // Acciones
   const alternarListo = async () => {
     if (!miEquipo || ocupado) return;
     setOcupado(true); setAviso(null);

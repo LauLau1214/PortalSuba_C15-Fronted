@@ -17,9 +17,9 @@ import { useCronometro } from '../../hooks/useCronometro';
 import './Partida.css';
 
 const FONDO = '/assets/fondos/Fondo_mapa.jpeg';
-const ASPECTO = 16 / 9;  // ancho / alto de Fondo_mapa (ajústalo si tu imagen es distinta)
-const PASO_MS = 150;     // tiempo por celda al caminar
-const ESPERA_RESUMEN_MS = 2500; // cuánto se ve el modal de fin antes de ir al resumen
+const ASPECTO = 16 / 9;
+const PASO_MS = 150;
+const ESPERA_RESUMEN_MS = 2500;
 const TECLAS = {
   ArrowUp: [0, -1], w: [0, -1], W: [0, -1],
   ArrowDown: [0, 1], s: [0, 1], S: [0, 1],
@@ -30,24 +30,23 @@ const PRIORIDAD = { ACERTIJO: 0, LLAVE: 1, PUERTA: 2 };
 const adyacente = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y) === 1;
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** El back manda el rol como texto ('HEROE') o como { userId, rol }. */
 const textoRol = (r) => (typeof r === 'string' ? r : r?.rol ?? null);
 
 export default function Partida() {
   const { salaId } = useParams();
-  const matchId = salaId; // la partida usa el mismo id de la sala
+  const matchId = salaId;
   const navegar = useNavigate();
   const userId = Sesion.userId;
   const username = Sesion.username;
   const conectado = useConexion();
   const { mmss, segundos, timeUp } = useCronometro(matchId);
 
-  const [fase, setFase] = useState('cargando'); // cargando | esperando | jugando | error
+  const [fase, setFase] = useState('cargando');
   const [errorFatal, setErrorFatal] = useState('');
   const [sala, setSala] = useState(null);
   const [equipo, setEquipo] = useState(null);
   const [mapa, setMapa] = useState(null);
-  const [posiciones, setPosiciones] = useState({}); // userId -> { userId, x, y, conectado }
+  const [posiciones, setPosiciones] = useState({});
   const [rol, setRol] = useState(null);
   const [verRol, setVerRol] = useState(false);
   const [inventario, setInventario] = useState([]);
@@ -61,9 +60,9 @@ export default function Partida() {
   const [grid, setGrid] = useState(false);
   const [salir, setSalir] = useState(false);
   const [equipos, setEquipos] = useState([]);
-  const [detalle, setDetalle] = useState(null);       // sala antes de iniciar (lo llena PanelEspera)
-  const [desafio, setDesafio] = useState(false);       // aviso del reto Héroe vs Verdugo
-  const [resultado, setResultado] = useState(null);    // fin de partida
+  const [detalle, setDetalle] = useState(null);
+  const [desafio, setDesafio] = useState(false);
+  const [resultado, setResultado] = useState(null);
 
   const posRef = useRef(posiciones);
   posRef.current = posiciones;
@@ -94,7 +93,7 @@ export default function Partida() {
     tFeed.current = setTimeout(() => setFeed(null), 4500);
   }
 
-  // ================= CARGA INICIAL =================
+  //CARGA INICIAL
   useEffect(() => {
     if (!userId) { navegar('/'); return; }
     let vivo = true;
@@ -105,7 +104,7 @@ export default function Partida() {
         if (!s) throw new Error('LA SALA NO EXISTE');
         if (vivo) setSala(s);
 
-        // Equipo del jugador. Si aún no tiene, se une al que tenga menos gente.
+        // Equipo del jugador.
         let lista = await listarEquipos(salaId);
         let mio = lista.find((e) => e.miembros.includes(userId));
         if (!mio) {
@@ -126,13 +125,8 @@ export default function Partida() {
       }
     })();
     return () => { vivo = false; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [salaId, userId]);
 
-  /**
-   * Intenta entrar al mapa. Devuelve true si quedó jugando.
-   * Si el back aún no registró al jugador, queda "esperando" y devuelve false.
-   */
   async function entrar(eqId = equipoIdRef.current) {
     if (!eqId || entrandoRef.current || faseRef.current === 'jugando') return faseRef.current === 'jugando';
     entrandoRef.current = true;
@@ -167,10 +161,6 @@ export default function Partida() {
     }
   }
 
-  /**
-   * La sala avisó que arrancó. El módulo de gameplay puede tardar un instante en
-   * registrar las posiciones, así que se reintenta unas veces antes de rendirse.
-   */
   async function alIniciarPartida() {
     for (let i = 0; i < 8; i++) {
       try {
@@ -192,12 +182,11 @@ export default function Partida() {
     }
   }
 
-  // ================= TIEMPO REAL =================
+  // TIEMPO REAL
   const equipoId = equipo?.id;
   const equipoIdRef = useRef(null);
   equipoIdRef.current = equipoId;
 
-  // --- Antes de iniciar: PanelEspera maneja listos y la cuenta; aquí solo sincronizamos el equipo ---
   const alDetalleEspera = useCallback((d) => {
     setDetalle(d);
     const mio = d?.equipos?.find((e) => (e.miembros ?? []).includes(userId));
@@ -208,20 +197,19 @@ export default function Partida() {
     if (d?.equipos) setEquipos(d.equipos);
   }, [userId]);
 
-  // --- Progreso: acertijos resueltos por equipo, en vivo ---
+  //Progreso: acertijos resueltos por equipo, en vivo
   function aplicarProgreso(prog, eqId = equipoIdRef.current) {
     const mio = prog.equipos?.find((e) => e.equipoId === eqId);
     if (mio) setResueltos(new Set(mio.acertijosResueltos));
   }
   useSubscription(fase === 'jugando' ? topics.progreso(matchId) : null, (pr) => aplicarProgreso(pr));
 
-  // --- Fin de partida ---
+  //Fin de partida
   useSubscription(fase === 'jugando' ? topics.resultado(matchId) : null, (r) => {
     if (acertijo) cerrarAcertijo();
     setResultado(r);
   });
 
-  // Al terminar la partida: se ve el modal 2.5 s y luego va a la pantalla de resumen
   useEffect(() => {
     if (!resultado) return;
     setDesafio(false);
@@ -229,7 +217,6 @@ export default function Partida() {
     setSalir(false);
     const t = setTimeout(() => irAlResumen(), ESPERA_RESUMEN_MS);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resultado]);
 
   function irAlResumen() {
@@ -248,7 +235,7 @@ export default function Partida() {
   useSubscription(equipoId ? topics.posiciones(matchId, equipoId) : null, (p) => {
     if (p.userId === userId) {
       if (!p.conectado) { setErrorFatal('SALISTE DE LA PARTIDA'); setFase('error'); }
-      return; // mi posición la maneja el movimiento local
+      return;
     }
     const antes = posRef.current[p.userId];
     if (!p.conectado && antes) anunciar(`${nombreDe(p.userId)} SALIÓ DE LA PARTIDA`);
@@ -269,7 +256,7 @@ export default function Partida() {
     setInventario(inv.objetos);
   });
 
-  // Reto Héroe vs Verdugo: lo dispara el servidor una vez, entre el 30% y el 70% del tiempo
+  // Reto Héroe vs Verdugo
   useSubscription(fase === 'jugando' ? topics.reto(matchId) : null, (msg) => {
     if (retoActivo(msg.estado) && !retoVisto.current && !resultado) abrirDesafio();
   });
@@ -287,18 +274,16 @@ export default function Partida() {
     navegar(`/reto/${matchId}`);
   }
 
-  /** Desarrollo: pide al back que dispare el reto ya (llega por el tópico a todos). */
   async function iniciarRetoDev() {
     setAjustes(false);
     try { await gameplayApi.devIniciarReto(matchId); } catch (e) { avisar(e.message.toUpperCase()); }
   }
-  /** Sin back: simula el reto localmente con bots. */
   function simularReto() {
     activarDemoReto(true);
     abrirDesafio();
   }
 
-  // ================= MOVIMIENTO =================
+  //MOVIMIENTO
   async function moverA(destino) {
     const yo = posRef.current[userId];
     if (!yo || movRef.current || acertijo || fase !== 'jugando' || timeUp || resultado) return;
@@ -321,7 +306,7 @@ export default function Partida() {
     }
   }
 
-  // Objeto al lado del jugador (el back exige distancia 1 para abrir o recoger)
+  // Objeto al lado del jugador
   const ocultos = useMemo(() => new Set(inventario.map((o) => o.id)), [inventario]);
   const cercano = useMemo(() => {
     if (!mapa || !miPos) return null;
@@ -365,7 +350,7 @@ export default function Partida() {
     setTimeout(() => setAcertijo(null), 1500);
   }
 
-  // ================= TECLADO =================
+  //TECLADO
   useEffect(() => {
     function onKey(e) {
       if (e.target.tagName === 'INPUT') return;
@@ -389,7 +374,7 @@ export default function Partida() {
     navegar('/home');
   }
 
-  // ================= RENDER =================
+  //RENDER
   const jugadores = Object.values(posiciones);
   const presentes = new Set(jugadores.map((j) => j.userId));
   const acertijos = mapa?.componentes.filter((c) => c.tipo === 'ACERTIJO') || [];

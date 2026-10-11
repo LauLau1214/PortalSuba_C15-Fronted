@@ -1,4 +1,3 @@
-/* La pantalla ocupa todo el alto y hace scroll vertical si el contenido no cabe */
 .rs-root {
   position: fixed;
   inset: 0;
@@ -21,7 +20,6 @@
   scrollbar-color: var(--oro-osc) transparent;
 }
 
-/* Fondo y velo quedan fijos mientras se hace scroll */
 .rs-fondo {
   position: fixed;
   inset: 0;
@@ -36,7 +34,6 @@
   background: radial-gradient(ellipse at center, rgba(13, 10, 8, 0.35) 0%, rgba(13, 10, 8, 0.82) 75%);
 }
 
-/* ---------- Botones de esquina (fijos) ---------- */
 .rs-esquina {
   position: fixed;
   z-index: 3;
@@ -57,7 +54,6 @@
 .rs-esquina--der { top: calc(var(--u) * 2); right: calc(var(--u) * 2); }
 .rs-esquina--abajo { bottom: calc(var(--u) * 2); right: calc(var(--u) * 2); }
 
-/* ---------- Panel central (fluye con el scroll) ---------- */
 .rs-panel {
   position: relative;
   z-index: 2;
@@ -121,7 +117,6 @@
 .rs-subtitulo { margin: calc(var(--u) * 0.8) 0 0; font-size: calc(var(--u) * 1.4); color: var(--crema); opacity: 0.85; }
 .rs-error { margin: 0; text-align: center; color: var(--rojo); font-size: calc(var(--u) * 1.3); }
 
-/* ---------- Cajas ---------- */
 .rs-fila { display: grid; gap: calc(var(--u) * 1.4); }
 .rs-fila--dos { grid-template-columns: 1fr 1fr; }
 .rs-fila--tres { grid-template-columns: repeat(3, 1fr); }
@@ -153,7 +148,6 @@
 .rs-sello--empate { color: var(--oro-claro); }
 .rs-sello--pierde { color: var(--rojo); }
 
-/* ---------- Jugadores (tarjetas más bajas para que todo quepa) ---------- */
 .rs-jugadores {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(calc(var(--u) * 14), 1fr));
@@ -198,7 +192,6 @@
 .rs-jugador__estado--verdugo { color: var(--rojo); }
 .rs-jugador__estado--participo { color: var(--verde); }
 
-/* ---------- Tabla de clasificación ---------- */
 .rs-tabla { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(var(--u) * 0.5); }
 .rs-tabla__fila {
   display: grid;
@@ -212,7 +205,6 @@
 .rs-tabla__fila--mio { border-left-color: var(--oro); background: #e8b84a1f; }
 .rs-tabla__pts { text-align: right; color: var(--oro-claro); }
 
-/* ---------- Botones ---------- */
 .rs-botones { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: calc(var(--u) * 1.4); margin-top: calc(var(--u) * 0.4); }
 .rs-boton {
   display: flex;

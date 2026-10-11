@@ -35,7 +35,7 @@
 .pm-root p { margin: 0; }
 .pm-root .icono-px { width: 1em; height: 1em; flex: none; }
 
-/* ================= MAPA ================= */
+/*MAPA*/
 .pm-mapa {
   position: absolute;
   left: 50%;
@@ -45,7 +45,7 @@
   transform: translate(-50%, -50%);
   background: #15110e center / 100% 100% no-repeat;
   image-rendering: pixelated;
-  container-type: inline-size; /* cqw = % del ancho del mapa */
+  container-type: inline-size;
 }
 
 .pm-celdas { position: absolute; inset: 0; }
@@ -65,7 +65,7 @@
 .pm-celda.visible.bloqueada { background: rgba(232, 96, 60, 0.18); }
 .pm-celda__txt { font-size: 0.55cqw; color: #ffe08a; pointer-events: none; }
 
-/* --- Objetos --- */
+/*Objetos*/
 .pm-objeto {
   position: absolute;
   transform: translate(-50%, -80%);
@@ -110,7 +110,7 @@
   border-top-color: var(--borde);
 }
 
-/* --- Jugadores --- */
+/*Jugadores*/
 .pm-jugador {
   position: absolute;
   transform: translate(-50%, -88%);
@@ -139,7 +139,7 @@
 }
 .pm-jugador.yo .pm-jugador__nombre { color: #1a120a; background: var(--dorado); border-color: #f0c467; }
 
-/* ================= HUD ================= */
+/*HUD*/
 .pm-hud { position: absolute; inset: 0; pointer-events: none; }
 .pm-hud > * { pointer-events: auto; }
 
@@ -154,7 +154,7 @@
   box-shadow: inset 0 0 0 calc(var(--u) * 0.18) #1a1612, calc(var(--u) * 0.35) calc(var(--u) * 0.45) 0 rgba(0, 0, 0, 0.55);
 }
 
-/* --- Sala --- */
+/*Sala*/
 .pm-sala { top: calc(var(--u) * 1); left: calc(var(--u) * 1); }
 .pm-puerta-ico {
   width: calc(var(--u) * 2);
@@ -176,7 +176,7 @@
 .pm-sala__nombre { font-size: calc(var(--u) * 1.25); letter-spacing: calc(var(--u) * 0.05); }
 .pm-sala__sub { margin-top: calc(var(--u) * 0.35) !important; font-size: calc(var(--u) * 0.85); color: var(--naranja); }
 
-/* --- Reloj --- */
+/*Reloj*/
 .pm-reloj { top: calc(var(--u) * 1); right: calc(var(--u) * 5.8); gap: calc(var(--u) * 1.1); }
 .pm-reloj__ico { font-size: calc(var(--u) * 2); color: var(--dorado); display: flex; }
 .pm-reloj__tiempo {
@@ -235,7 +235,7 @@
 }
 .pm-ajustes button:hover { background: #2e2823; color: var(--naranja); }
 
-/* --- Panel lateral --- */
+/*Panel lateral*/
 .pm-tab-panel {
   position: absolute;
   top: 42%;
@@ -295,7 +295,7 @@
 .pm-panel__vacio,
 .pm-panel__ayuda { font-size: calc(var(--u) * 0.75); color: var(--crema-tenue); line-height: 1.7; }
 
-/* --- Equipo --- */
+/*Equipo*/
 .pm-equipo {
   position: absolute;
   left: calc(var(--u) * 1);
@@ -350,7 +350,7 @@
   border: calc(var(--u) * 0.12) dashed #a08a5c;
 }
 
-/* --- Noticias --- */
+/*Noticias*/
 .pm-feed {
   position: absolute;
   bottom: calc(var(--u) * 1.4);
@@ -379,7 +379,7 @@
   background: #3b3128;
 }
 
-/* --- Brújula y salir --- */
+/*Brújula y salir*/
 .pm-brujula {
   position: absolute;
   right: calc(var(--u) * 6);
@@ -416,7 +416,7 @@
   animation: pm-aparecer 0.15s steps(3);
 }
 
-/* ================= BOTONES ================= */
+/*BOTONES*/
 .pm-btn {
   height: calc(var(--u) * 3.2);
   padding: 0 calc(var(--u) * 1.6);
@@ -433,7 +433,7 @@
 .pm-btn-rojo { --base: var(--rojo); --luz: var(--rojo-luz); --sombra: var(--rojo-sombra); }
 .pm-btn-marron { --base: var(--marron); --luz: var(--marron-luz); --sombra: var(--marron-sombra); }
 
-/* ================= MODALES ================= */
+/*MODALES*/
 .pm-modal-fondo {
   position: absolute;
   inset: 0;
@@ -462,7 +462,7 @@
 .pm-espera__puntos span { animation: pm-parpadeo 1s steps(1) infinite; }
 .pm-espera__botones { display: flex; gap: calc(var(--u) * 1); }
 
-/* --- Acertijo --- */
+/*Acertijo*/
 .pm-acertijo {
   width: calc(var(--u) * 46);
   display: flex;
@@ -522,7 +522,7 @@
 .pm-acertijo__botones .pm-btn:only-child { grid-column: 1 / -1; }
 .pm-acertijo__nota { font-size: calc(var(--u) * 0.65); color: var(--crema-tenue); text-align: center; }
 
-/* --- Asignación de rol --- */
+/*Asignación de rol*/
 .pm-fondo-rol { background: rgba(0, 0, 0, 0.7); }
 .pm-rol {
   --acento: #d9a441;
@@ -632,7 +632,7 @@
 .pm-rol__boton:hover { filter: brightness(1.12); }
 .pm-rol__cuenta { font-size: calc(var(--u) * 0.85); color: var(--crema-tenue); }
 
-/* ================= ANIMACIONES ================= */
+/*ANIMACIONES*/
 @keyframes pm-flotar { 50% { transform: translateY(-0.4cqw); } }
 @keyframes pm-parpadeo { 50% { opacity: 0.35; } }
 @keyframes pm-aparecer { from { opacity: 0; transform: translateY(0.5cqw); } }

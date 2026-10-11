@@ -8,11 +8,9 @@ import { topics } from '../../config';
 import { useSubscription } from '../../hooks/useSocket';
 import './Resumen.css';
 
-// Si tu fondo se llama distinto, cámbialo aquí (el segundo es respaldo)
 const FONDO = '/assets/fondos/Fondo_Resumen.jpeg';
 const FONDO_RESPALDO = '/assets/fondos/Fondo_Lobby.jpeg';
 
-// El back usa 30 min por defecto (c15.partida.duracion)
 const DURACION_DEFECTO_SEG = 30 * 60;
 
 const mmss = (seg) => {
@@ -27,7 +25,6 @@ const formatoPuntos = (n) => Number(n ?? 0).toLocaleString('es-CO');
 /** acertijosResueltos puede venir como número o como lista de ids */
 const cantidad = (v) => (Array.isArray(v) ? v.length : Number(v ?? 0));
 
-// Cuenta hacia arriba para el número de puntos
 function useConteo(objetivo, duracionMs = 1200) {
   const [valor, setValor] = useState(0);
   useEffect(() => {
@@ -69,13 +66,11 @@ export default function Resumen() {
     if (!userId) navigate('/');
   }, [userId, navigate]);
 
-  // Por si el resultado llega por socket mientras estamos aquí
   useSubscription(matchId ? topics.resultado(matchId) : null, (r) => setResultado(r));
 
   useEffect(() => {
     let vivo = true;
     (async () => {
-      // Resultado (si no vino desde Partida)
       if (!resultado) {
         try {
           const r = await gameplayApi.resultado(matchId);
@@ -87,13 +82,12 @@ export default function Resumen() {
 
       // Equipos y roles de mi equipo
       try {
-        const eqs = await listarEquipos(matchId); // matchId = salaId
+        const eqs = await listarEquipos(matchId);
         if (!vivo) return;
         setEquipos(eqs ?? []);
         if (miEquipoId) {
           const r = await gameplayApi.rolesEquipo(matchId, miEquipoId).catch(() => null);
           if (vivo && r) {
-            // El back manda { matchId, equipoId, roles: { userId: 'HEROE' | 'VERDUGO' } }
             const fuente = r.roles ?? r;
             const mapa = {};
             if (Array.isArray(fuente)) fuente.forEach((x) => { mapa[x.userId] = x.rol; });
@@ -103,14 +97,14 @@ export default function Resumen() {
         }
       } catch { /* sin equipos: tarjetas vacías */ }
 
-      // Total de acertijos: se cuentan en el mapa
+      // Total de acertijos
       try {
         const m = await gameplayApi.mapa(matchId);
         const total = (m?.componentes ?? []).filter((c) => c.tipo === 'ACERTIJO').length;
         if (vivo && total > 0) setTotalAcertijos(total);
       } catch { /* opcional */ }
 
-      // Tiempo restante (si no vino desde Partida)
+      // Tiempo restante
       if (segRestantes == null) {
         try {
           const t = await gameplayApi.timer(matchId);
@@ -122,7 +116,7 @@ export default function Resumen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchId]);
 
-  // ---------- Datos derivados ----------
+  //Datos derivados
   const clasificacion = useMemo(
     () => [...(resultado?.clasificacion ?? [])].sort((a, b) => (b.puntaje ?? 0) - (a.puntaje ?? 0)),
     [resultado]
@@ -164,7 +158,7 @@ export default function Resumen() {
     return { texto: 'PARTICIPÓ', clase: 'participo' };
   };
 
-  // ---------- Acciones ----------
+  //Acciones
   const limpiarPartida = () => {
     Sesion.guardar('salaId', null);
     Sesion.guardar('equipoId', null);

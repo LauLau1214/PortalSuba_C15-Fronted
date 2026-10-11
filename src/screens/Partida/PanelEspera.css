@@ -32,7 +32,6 @@
   letter-spacing: calc(var(--u) * 0.15);
 }
 
-/* Código */
 .pe-codigo {
   display: flex;
   align-items: center;

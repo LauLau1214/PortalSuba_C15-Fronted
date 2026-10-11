@@ -21,16 +21,11 @@ const ROLES = {
   },
 };
 
-/**
- * Anuncio del rol secreto al iniciar la partida.
- * Props: rol ('HEROE' | 'VERDUGO'), username, equipoNumero, onCerrar
- */
 export default function ModalRol({ rol, username, equipoNumero, onCerrar }) {
   const datos = ROLES[String(rol).toUpperCase()] ?? ROLES.HEROE;
   const [restante, setRestante] = useState(SEGUNDOS);
   const [sinImagen, setSinImagen] = useState(false);
 
-  // La cuenta usa un ref para no reiniciarse con los re-render de Partida
   const cerrarRef = useRef(onCerrar);
   cerrarRef.current = onCerrar;
 

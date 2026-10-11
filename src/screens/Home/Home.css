@@ -19,7 +19,7 @@
   --h-marron-luz: #ab7746;
   --h-marron-sombra: #5a3a1f;
   --h-online: #6fd46a;
-  --h-fuente: 'Silkscreen', monospace;        /* texto general: trae tildes */
+  --h-fuente: 'Silkscreen', monospace;
   --h-fuente-titulo: 'Press Start 2P', monospace;
 
   position: fixed;
@@ -46,7 +46,7 @@
 
 .icono-px { width: 1em; height: 1em; flex: none; }
 
-/* ================= BOTONES ================= */
+/* BOTONES*/
 .btn {
   display: inline-flex;
   align-items: center;
@@ -71,7 +71,7 @@
 .btn-estado { cursor: default; }
 .btn-ancho { width: 100%; height: calc(var(--u) * 3); }
 
-/* ================= BARRA LATERAL ================= */
+/* BARRA LATERAL*/
 .lateral {
   position: absolute;
   left: calc(var(--u) * 1);
@@ -94,7 +94,6 @@
 }
 .placa__rotulo { font-size: calc(var(--u) * 1.05); margin-bottom: calc(var(--u) * 0.7) !important; }
 
-/* --- Carnet --- */
 .carnet {
   background: #dccaa0;
   border: calc(var(--u) * 0.2) solid #8a7550;
@@ -132,7 +131,6 @@
 .carnet__puntos { display: flex; align-items: center; gap: calc(var(--u) * 0.5); font-size: calc(var(--u) * 1); }
 .carnet__puntos .icono-px { color: #b8752a; }
 
-/* --- Chat (maqueta) --- */
 .chat-tabs { display: flex; gap: calc(var(--u) * 0.3); }
 .chat-tabs button {
   padding: calc(var(--u) * 0.45) calc(var(--u) * 0.8);
@@ -166,7 +164,6 @@
   background: #57514a;
 }
 
-/* --- Unirse por código --- */
 .placa-codigo { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.9); }
 .codigo-titulo {
   align-self: flex-start;
@@ -195,7 +192,7 @@
 .codigo-casillas input.llena,
 .codigo-casillas input:focus { border-color: var(--h-naranja); box-shadow: 0 0 calc(var(--u) * 0.5) rgba(227, 162, 59, 0.35); }
 
-/* --- Crear sala (marco de peligro) --- */
+/* Crear sala*/
 .placa-crear { padding: calc(var(--u) * 0.7); }
 .peligro {
   padding: calc(var(--u) * 0.75);
@@ -216,7 +213,7 @@
 .btn-crear:hover { filter: brightness(1.1); }
 .btn-crear:active { transform: translateY(calc(var(--u) * 0.2)); }
 
-/* ================= CONTENIDO ================= */
+/*CONTENIDO*/
 .contenido {
   position: absolute;
   left: calc(var(--u) * 30);
@@ -292,7 +289,7 @@
 }
 .mensaje-grid { grid-column: 1 / -1; text-align: center; font-size: calc(var(--u) * 1); color: var(--h-crema-tenue); }
 
-/* --- Tarjeta de sala --- */
+/*Tarjeta de sala*/
 .sala {
   position: relative;
   box-sizing: border-box;
@@ -360,7 +357,7 @@
 .sala.vacia small { font-size: calc(var(--u) * 0.85); color: var(--h-naranja); }
 .sala.vacia:hover { border-color: var(--h-borde-sala); color: var(--h-crema); }
 
-/* ================= VOLVER ================= */
+/*VOLVER*/
 .volver {
   position: absolute;
   right: calc(var(--u) * 1);
@@ -376,7 +373,7 @@
 }
 .volver:hover { border-color: #7a7068; }
 
-/* ================= POPUP ================= */
+/*POPUP*/
 .popup-fondo {
   position: absolute;
   inset: 0;
@@ -410,7 +407,7 @@
 .popup-error { min-height: calc(var(--u) * 0.8); font-size: calc(var(--u) * 0.85); color: #e8603c; }
 .popup-botones { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--u) * 1); }
 
-/* ================= AVISO ================= */
+/*AVISO*/
 .aviso {
   position: absolute;
   left: 50%;

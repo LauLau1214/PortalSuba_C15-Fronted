@@ -10,10 +10,9 @@ import { useReto, activarDemoReto, esDemoReto, retoActivo } from '../../hooks/us
 import './RetoHeroeVerdugo.css';
 
 const FONDO = '/assets/fondos/Fondo_Reto.jpeg';
-const ASPECTO = 16 / 9; // ancho / alto de Fondo_Reto
-const VOLVER_EN = 8;    // segundos para volver solos al mapa cuando termina
+const ASPECTO = 16 / 9;
+const VOLVER_EN = 8;
 
-// Puntos sobre la imagen (en % del fondo). Ajústalos si cambias la imagen.
 const BANCO_IZQ = [[16, 57], [21, 53], [26, 49], [31, 45]];
 const BANCO_DER = [[69, 45], [74, 49], [79, 53], [84, 57]];
 const PEDESTAL = [50, 47];
@@ -33,13 +32,11 @@ export default function RetoHeroeVerdugo() {
         const equipos = (await listarEquipos(matchId))
           .filter((e) => e.miembros.length)
           .sort((a, b) => a.numero - b.numero);
-        // roles de cada equipo: { userId: 'HEROE' | 'VERDUGO' }
         const roles = {};
         await Promise.all(equipos.map((e) =>
           gameplayApi.rolesEquipo(matchId, e.id).then((r) => Object.assign(roles, r.roles)).catch(() => {})
         ));
         if (esDemoReto() && !Object.keys(roles).length) {
-          // demo sin partida real: el primero de cada equipo es verdugo y el resto héroes
           equipos.forEach((e) => e.miembros.forEach((id, i) => { roles[id] = i === 0 && id !== userId ? 'VERDUGO' : 'HEROE'; }));
         }
         setDatos({ equipos, roles });
@@ -97,14 +94,12 @@ function Arena({ matchId, equipos, roles }) {
     navegar(`/partida/${matchId}`);
   }
 
-  // Al terminar, cuenta y vuelve solo al mapa
   const [vuelta, setVuelta] = useState(VOLVER_EN);
   useEffect(() => {
     if (!terminado) return;
     if (vuelta <= 0) { volver(); return; }
     const id = setTimeout(() => setVuelta((s) => s - 1), 1000);
     return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [terminado, vuelta]);
 
   const led = !reto.estado ? 'CONECTANDO CON EL RETO...'
@@ -238,7 +233,7 @@ function Arena({ matchId, equipos, roles }) {
   );
 }
 
-/** Popup para los jugadores con rol: botón grande y fácil de presionar. */
+/** Popup para los jugadores con rol */
 function BotonDuelo({ reto, miRol, miEquipo, rival, misClics, onPresionar }) {
   const [hundido, setHundido] = useState(false);
   const mio = reto.puntajes?.[miEquipo.id] ?? 0;
@@ -312,7 +307,7 @@ function Marcador({ reto, equipos }) {
   );
 }
 
-/** Parte de la barra para "a" (los puntajes pueden ser negativos por los verdugos). */
+/** Parte de la barra para "a" */
 function porcentaje(a, b) {
   const base = Math.min(0, a, b);
   const x = a - base;

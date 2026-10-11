@@ -19,7 +19,7 @@
   --heroe: #f0c467;
   --verdugo: #e8603c;
   --fuente: 'Silkscreen', monospace;
-  --fuente-titulo: 'Press Start 2P', monospace; /* solo textos sin tildes */
+  --fuente-titulo: 'Press Start 2P', monospace;
   --u: min(1cqw, 1.78cqh);
 
   position: fixed;
@@ -36,7 +36,7 @@
 .rt-root p { margin: 0; }
 .rt-root .icono-px { width: 1em; height: 1em; flex: none; }
 
-/* ================= ESCENARIO ================= */
+/*ESCENARIO*/
 .rt-escenario {
   position: absolute;
   left: 50%;
@@ -88,7 +88,7 @@
 .rt-jugador.heroe .rt-jugador__nombre { border-color: var(--heroe); box-shadow: 0 0 0.6cqw var(--heroe); }
 .rt-jugador.verdugo .rt-jugador__nombre { border-color: var(--verdugo); box-shadow: 0 0 0.6cqw var(--verdugo); }
 
-/* ================= HUD ================= */
+/*HUD*/
 .rt-hud { position: absolute; inset: 0; pointer-events: none; }
 .rt-hud > * { pointer-events: auto; }
 
@@ -189,7 +189,7 @@
 }
 .rt-tab-chat span { writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: calc(var(--u) * 0.15); }
 
-/* --- Equipos --- */
+/*Equipos*/
 .rt-equipo {
   position: absolute;
   bottom: calc(var(--u) * 1);
@@ -251,7 +251,7 @@
   border: calc(var(--u) * 0.12) dashed #a08a5c;
 }
 
-/* --- Centro abajo --- */
+/*Centro abajo*/
 .rt-centro {
   position: absolute;
   bottom: calc(var(--u) * 1);
@@ -324,7 +324,7 @@
   border: calc(var(--u) * 0.2) solid var(--naranja);
 }
 
-/* ================= BOTONES GENERALES ================= */
+/*BOTONES GENERALES*/
 .rt-btn {
   height: calc(var(--u) * 3.4);
   padding: 0 calc(var(--u) * 2);
@@ -337,7 +337,7 @@
 .rt-btn-verde { --base: var(--verde); --luz: var(--verde-luz); --sombra: var(--verde-sombra); color: #eaf6d9 !important; }
 .rt-btn-marron { --base: var(--marron); --luz: var(--marron-luz); --sombra: var(--marron-sombra); }
 
-/* ================= MODALES ================= */
+/*MODALES*/
 .rt-modal-fondo {
   position: absolute;
   inset: 0;
@@ -357,7 +357,7 @@
   animation: rt-golpe 0.9s steps(6);
 }
 
-/* --- Popup del botón (héroe / verdugo) --- */
+/*Popup del botón (héroe / verdugo)*/
 .rt-duelo {
   --acento: var(--heroe);
   position: relative;
@@ -450,7 +450,7 @@
 .rt-boton-rojo:focus-visible { outline: calc(var(--u) * 0.3) solid var(--dorado); outline-offset: calc(var(--u) * 0.5); }
 .rt-duelo__ayuda { font-size: calc(var(--u) * 0.75); color: var(--crema-tenue); }
 
-/* --- Marcador para espectadores --- */
+/*Marcador para espectadores */
 .rt-marcador {
   position: absolute;
   bottom: calc(var(--u) * 1);
@@ -484,7 +484,7 @@
 .rt-resultado__marcador strong { font-family: var(--fuente-titulo); font-weight: normal; font-size: calc(var(--u) * 2); color: var(--crema); }
 .rt-vs { font-family: var(--fuente-titulo); font-size: calc(var(--u) * 1.4); color: var(--naranja); }
 
-/* --- Resultado --- */
+/* Resultado*/
 .rt-resultado {
   position: relative;
   width: calc(var(--u) * 40);
@@ -515,7 +515,7 @@
 .rt-resultado.verdugo .rt-resultado__titulo { color: var(--verdugo); }
 .rt-resultado__sub { font-size: calc(var(--u) * 1.05); color: var(--crema-tenue); }
 
-/* ================= ANIMACIONES ================= */
+/*ANIMACIONES*/
 @keyframes rt-parpadeo { 50% { opacity: 0.4; } }
 @keyframes rt-latido { 50% { transform: translate(-50%, -50%) scale(1.25); } }
 @keyframes rt-aparecer { from { opacity: 0; transform: scale(0.9); } }
@@ -525,7 +525,7 @@
   .rt-root *, .rt-root *::after { animation: none !important; transition: none !important; }
 }
 
-/* ===== Ajustes al contrato real (todos los que tienen rol presionan) ===== */
+/*Ajustes al contrato real (todos los que tienen rol presionan)*/
 .rt-duelo__efecto {
   padding: calc(var(--u) * 0.5) calc(var(--u) * 1.2);
   font-size: calc(var(--u) * 0.85);

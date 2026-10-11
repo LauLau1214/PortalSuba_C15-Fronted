@@ -1,11 +1,3 @@
-/* =========================================================================
-   CAPA DE LEGIBILIDAD
-   Sube los textos pequeños de todas las pantallas sin tocar cada CSS.
-   Cada tamaño usa max(mínimo en px, tamaño relativo a la pantalla):
-   así nunca baja de un tamaño legible en pantallas pequeñas y sigue
-   creciendo en pantallas grandes.
-   Se importa en main.jsx DESPUÉS de los demás estilos.
-   ========================================================================= */
 
 :root {
   /* Escala de tamaños (u = unidad de cada pantalla; 10px si no existe) */
@@ -15,9 +7,7 @@
   --fs-boton:  max(12px, calc(var(--u, 10px) * 1.2));  /* botones (Press Start) */
 }
 
-/* -------------------------------------------------------------------------
-   PARTIDA (mapa y HUD)
-   ------------------------------------------------------------------------- */
+/* PARTIDA (mapa y HUD) */
 :root .pm-sala__nombre { font-size: var(--fs-texto); }
 :root .pm-sala__sub,
 :root .pm-chip,
@@ -47,10 +37,7 @@
 :root .pm-clasificacion p { font-size: var(--fs-texto); }
 :root .pm-clasificacion small { font-size: var(--fs-mini); }
 
-/* -------------------------------------------------------------------------
-   ACERTIJOS (cualquier clase que contenga "pm-acertijo")
-   Se suben textos, campos y botones; los títulos conservan su tamaño.
-   ------------------------------------------------------------------------- */
+/*ACERTIJOS */
 :root [class*="pm-acertijo"] :is(p, li, label, small, input, textarea, select):not([class*="titulo"]) {
   font-size: var(--fs-texto);
   line-height: 1.6;
@@ -71,9 +58,7 @@
   font-size: var(--fs-texto);
 }
 
-/* -------------------------------------------------------------------------
-   SALA DE ESPERA (PanelEspera)
-   ------------------------------------------------------------------------- */
+/*SALA DE ESPERA*/
 :root .pe-velo { padding: 16px; box-sizing: border-box; }
 
 :root .pe-panel {
@@ -109,9 +94,7 @@
 :root .pe-boton { font-size: var(--fs-boton); }
 :root .pe-boton--chico { font-size: var(--fs-mini); }
 
-/* -------------------------------------------------------------------------
-   ANUNCIO DE ROL (ModalRol)
-   ------------------------------------------------------------------------- */
+/* ANUNCIO DE ROL */
 :root .mr-sup { font-size: var(--fs-texto); }
 :root .mr-lema { font-size: var(--fs-medio); }
 :root .mr-texto { font-size: var(--fs-texto); line-height: 1.7; }
@@ -119,9 +102,7 @@
 :root .mr-boton { font-size: var(--fs-boton); }
 :root .mr-panel { width: min(calc(var(--u, 10px) * 48), calc(100vw - 32px)); }
 
-/* -------------------------------------------------------------------------
-   RESUMEN (fin de partida)
-   ------------------------------------------------------------------------- */
+/* RESUMEN*/
 :root .rs-subtitulo { font-size: var(--fs-medio); }
 :root .rs-caja__etq { font-size: var(--fs-mini); }
 :root .rs-caja__extra { font-size: var(--fs-mini); }

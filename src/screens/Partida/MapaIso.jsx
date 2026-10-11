@@ -154,7 +154,6 @@ function Sprite({ tipo, resuelto }) {
       </svg>
     );
   }
-  // OBSTACULO: caja
   return (
     <svg className="pm-sprite" viewBox="0 0 8 8" shapeRendering="crispEdges" aria-hidden="true">
       <path d="M0 1h8v7H0z" fill="#6b4a2b" />

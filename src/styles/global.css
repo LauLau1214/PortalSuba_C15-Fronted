@@ -12,14 +12,14 @@ body,
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;          /* sin barras de desplazamiento en la página */
+  overflow: hidden;
 }
 
 body {
   background: #0d0a08;
   color: #f1dfb8;
   font-family: 'Silkscreen', 'Press Start 2P', monospace;
-  -webkit-font-smoothing: none;        /* bordes nítidos en las fuentes pixel */
+  -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
 }
@@ -33,7 +33,6 @@ ul, ol {
   list-style: none;
 }
 
-/* ---------- Imágenes pixel art ---------- */
 img {
   display: block;
   max-width: 100%;
@@ -41,7 +40,6 @@ img {
   -webkit-user-drag: none;
 }
 
-/* ---------- Controles de formulario ---------- */
 button,
 input,
 select,
@@ -84,13 +82,11 @@ input:-webkit-autofill:focus {
   transition: background-color 9999s ease-in-out 0s;
 }
 
-/* ---------- Selección de texto ---------- */
 ::selection {
   background: #e3a23b;
   color: #1a120a;
 }
 
-/* ---------- Barras de scroll internas (ej. lista de salas) ---------- */
 * {
   scrollbar-width: thin;
   scrollbar-color: #b8862e transparent;
@@ -114,7 +110,6 @@ input:-webkit-autofill:focus {
   background: #d9a441;
 }
 
-/* ---------- Accesibilidad: menos animación si el usuario lo pide ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

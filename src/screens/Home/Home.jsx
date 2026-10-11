@@ -42,12 +42,10 @@ export default function Home() {
   const temporizador = useRef(null);
   const casillas = useRef([]);
 
-  // Sin sesión, de vuelta al login
   useEffect(() => {
     if (!userId) navegar('/');
   }, [userId, navegar]);
 
-  // Carga inicial por REST
   useEffect(() => {
     listarSalas()
       .then(setSalas)
@@ -55,7 +53,6 @@ export default function Home() {
       .finally(() => setCargando(false));
   }, []);
 
-  // En vivo: el back manda la lista completa cada vez que algo cambia
    useTopic(topics.salas(), setSalas);
 
   function avisar(texto) {
@@ -66,17 +63,15 @@ export default function Home() {
 
   async function entrar(sala) {
     try {
-      // El anfitrión ya está dentro; los demás se unen
       if (sala.anfitrionId !== userId) await unirseASala(sala.id, userId);
       Sesion.guardar('salaId', sala.id);
       navegar(`/sala/${sala.id}`);
     } catch (e) {
-      // 409 = sala llena (otro jugador entró primero)
       avisar(e.esConflicto ? 'La sala se llenó, prueba con otra' : e.message);
     }
   }
 
-  // ----- Unirse por código -----
+  //Unirse por código
   function escribirCodigo(i, valor) {
     const letra = valor.slice(-1).toUpperCase().replace(/[^0-9A-F]/, '');
     const nuevo = [...codigo];
@@ -96,7 +91,7 @@ export default function Home() {
     entrar(sala);
   }
 
-  // ----- Crear sala -----
+  //Crear sala
   function abrirCrear() {
     navegar('/crear-sala');
   }
@@ -202,7 +197,7 @@ export default function Home() {
           </section>
         </aside>
 
-        {/* ================= CONTENIDO ================= */}
+        {/* CONTENIDO */}
         <main className="contenido">
           <p className="rotulo-nav">NAVEGACIÓN</p>
           <nav className="nav">
@@ -258,7 +253,7 @@ export default function Home() {
           <Icono nombre="flecha" />
         </button>
 
-        {/* ================= POPUP CREAR SALA ================= */}
+        {/* POPUP CREAR SALA*/}
         {popup && (
           <div className="popup-fondo" onClick={() => !creando && setPopup(false)}>
             <div className="popup" onClick={(e) => e.stopPropagation()}>
