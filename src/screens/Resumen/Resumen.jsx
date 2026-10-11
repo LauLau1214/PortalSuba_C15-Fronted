@@ -6,6 +6,7 @@ import { listarEquipos } from '../../services/salasApi';
 import { gameplayApi } from '../../services/gameplayApi';
 import { topics } from '../../config';
 import { useSubscription } from '../../hooks/useSocket';
+import { useNombres } from '../../hooks/useNombres';
 import './Resumen.css';
 
 const FONDO = '/assets/fondos/Fondo_Resumen.jpeg';
@@ -20,7 +21,6 @@ const mmss = (seg) => {
 };
 
 const idDe = (m) => (typeof m === 'string' ? m : m?.userId ?? m?.id ?? '');
-const corto = (id) => String(id).slice(0, 4).toUpperCase();
 const formatoPuntos = (n) => Number(n ?? 0).toLocaleString('es-CO');
 /** acertijosResueltos puede venir como número o como lista de ids */
 const cantidad = (v) => (Array.isArray(v) ? v.length : Number(v ?? 0));
@@ -48,7 +48,6 @@ export default function Resumen() {
   const { state } = useLocation();
 
   const userId = Sesion.userId;
-  const username = Sesion.username;
   const miEquipoId = Sesion.equipoId;
 
   const [resultado, setResultado] = useState(state?.resultado ?? null);
@@ -148,6 +147,7 @@ export default function Resumen() {
   const puntos = useConteo(miFila?.puntaje ?? 0);
 
   const miembros = (miEquipo?.miembros ?? []).map(idDe);
+  const nombreDe = useNombres(miembros);
   const tarjetas = [...miembros];
   while (tarjetas.length < (miEquipo?.cupoMaximo ?? 2)) tarjetas.push(null);
 
@@ -229,7 +229,7 @@ export default function Resumen() {
                 {soyYo && <span className="rs-jugador__tu">TÚ</span>}
                 <Icono nombre="persona" className="rs-jugador__avatar" />
                 <span className="rs-jugador__nombre">
-                  {soyYo && username ? username.toUpperCase() : `JUGADOR ${corto(id)}`}
+                  {nombreDe(id).toUpperCase()}
                 </span>
                 <span className={`rs-jugador__estado rs-jugador__estado--${est.clase}`}>{est.texto}</span>
               </div>

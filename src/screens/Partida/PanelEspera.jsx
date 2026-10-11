@@ -3,17 +3,15 @@ import { detalleSala, marcarListo, desmarcarListo, unirseAEquipo } from '../../s
 import { Sesion } from '../../services/sesion';
 import { topics } from '../../config';
 import { useSubscription } from '../../hooks/useSocket';
+import { useNombres } from '../../hooks/useNombres';
 import { codigoDe } from '../Home/SalaCard';
 import './PanelEspera.css';
 
 const MIN_EQUIPOS = 2;
 const MIN_JUGADORES = 2;
 
-const corto = (id) => String(id).slice(0, 4).toUpperCase();
-
 export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle }) {
   const userId = Sesion.userId;
-  const username = Sesion.username;
 
   const [detalle, setDetalle] = useState(null);
   const [cuenta, setCuenta] = useState(null);
@@ -72,7 +70,8 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
   );
   const miEquipo = equipos.find((e) => (e.miembros ?? []).includes(userId));
   const yoListo = !!miEquipo && (miEquipo.listos ?? []).includes(userId);
-  const nombreDe = (id) => (id === userId && username ? username.toUpperCase() : `JUGADOR ${corto(id)}`);
+  const nombreDeJugador = useNombres(detalle?.jugadores);
+  const nombreDe = (id) => nombreDeJugador(id).toUpperCase();
 
   const totalJugadores = detalle?.jugadores?.length ?? 0;
   const totalListos = equipos.reduce((n, e) => n + (e.listos?.length ?? 0), 0);
