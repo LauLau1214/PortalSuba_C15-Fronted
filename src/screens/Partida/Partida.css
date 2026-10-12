@@ -103,6 +103,9 @@
   animation: pm-aparecer 0.15s steps(3);
 }
 .pm-burbuja strong { color: var(--naranja); font-weight: normal; }
+/* La burbuja es un botón: se puede tocar (celular) además de usar la tecla E */
+.pm-burbuja { pointer-events: auto; cursor: pointer; font-family: inherit; line-height: inherit; }
+.pm-burbuja:hover { border-color: var(--naranja); }
 .pm-burbuja::after {
   content: '';
   position: absolute;

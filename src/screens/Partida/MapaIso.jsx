@@ -21,7 +21,7 @@ export const numeroDe = (componenteId) => componenteId.split('-')[1];
 
 export default function MapaIso({
   mapa, jugadores, userId, nombreDe, ocultos, resueltos, cercano,
-  mostrarGrid, moviendo, onCelda,
+  mostrarGrid, moviendo, onCelda, onInteractuar,
 }) {
   const ocupadas = useMemo(() => {
     const s = new Set();
@@ -71,7 +71,7 @@ export default function MapaIso({
             style={{ left: `${left}%`, top: `${top}%`, zIndex: esCercano ? 200 : 10 + c.x + c.y }}
           >
             <Sprite tipo={c.tipo} resuelto={resuelto} />
-            {esCercano && <Burbuja componente={c} resuelto={resuelto} />}
+            {esCercano && <Burbuja componente={c} resuelto={resuelto} onInteractuar={onInteractuar} />}
           </div>
         );
       })}
@@ -97,7 +97,8 @@ export default function MapaIso({
   );
 }
 
-function Burbuja({ componente, resuelto }) {
+// Botón: además de la tecla E se puede tocar/clickear (celular)
+function Burbuja({ componente, resuelto, onInteractuar }) {
   const n = numeroDe(componente.id);
   const textos = {
     ACERTIJO: [`ACERTIJO ${n}`, resuelto ? 'RESUELTO · [E] VER' : '[E] EXAMINAR'],
@@ -106,10 +107,14 @@ function Burbuja({ componente, resuelto }) {
   }[componente.tipo];
   if (!textos) return null;
   return (
-    <div className="pm-burbuja">
+    <button
+      type="button"
+      className="pm-burbuja"
+      onClick={(e) => { e.stopPropagation(); e.currentTarget.blur(); onInteractuar?.(); }}
+    >
       <strong>{textos[0]}</strong>
       <span>{textos[1]}</span>
-    </div>
+    </button>
   );
 }
 

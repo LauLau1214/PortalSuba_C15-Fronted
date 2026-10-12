@@ -414,6 +414,7 @@ export default function Partida() {
             mostrarGrid={grid}
             moviendo={moviendo}
             onCelda={moverA}
+            onInteractuar={interactuar}
           />
         )}
       </div>
