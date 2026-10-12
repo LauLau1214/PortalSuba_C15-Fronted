@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SalaCard, { codigoDe } from './SalaCard';
 import Icono from './Iconos';
 import { useTopic } from '../../hooks/useSocket';
+import { useNombres } from '../../hooks/useNombres';
 import { listarSalas, crearSala, unirseASala } from '../../services/salasApi';
 import { Sesion } from '../../services/sesion';
 import './Home.css';
@@ -30,6 +31,7 @@ export default function Home() {
   const username = Sesion.username;
 
   const [salas, setSalas] = useState([]);
+  const nombreDe = useNombres(salas.map((s) => s.anfitrionId));
   const [cargando, setCargando] = useState(true);
   const [aviso, setAviso] = useState('');
   const [silenciado, setSilenciado] = useState(false);
@@ -235,6 +237,7 @@ export default function Home() {
                 key={sala.id}
                 sala={sala}
                 userId={userId}
+                nombreLider={nombreDe(sala.anfitrionId)}
                 miniatura={MINIATURAS[i % MINIATURAS.length]}
                 onEntrar={entrar}
               />

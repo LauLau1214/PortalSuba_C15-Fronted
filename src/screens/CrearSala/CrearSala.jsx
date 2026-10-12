@@ -15,7 +15,9 @@ const TEMATICAS = [
   { id: 'laboratorio', nombre: 'LABORATORIO', imagen: '/assets/salas/sala_3.png', dificultad: 4 },
   { id: 'sotano', nombre: 'SÓTANO OSCURO', imagen: '/assets/salas/sala_4.png', dificultad: 5 },
 ];
-const TIEMPOS = [10, 15, 30, 45];
+// La partida dura lo que fija el back (c15.partida.duracion = 5 min); los demás tiempos aún no están disponibles
+const TIEMPO_PARTIDA = 5;
+const TIEMPOS = [TIEMPO_PARTIDA, 15, 30, 45];
 const NIVELES = ['', 'MUY FÁCIL', 'FÁCIL', 'MEDIA', 'DIFÍCIL', 'EXTREMA'];
 const MAX_NOMBRE = 24;
 const MIN_JUGADORES = 2;
@@ -28,7 +30,7 @@ export default function CrearSala() {
 
   const [nombre, setNombre] = useState('');
   const [tematica, setTematica] = useState(0);
-  const [tiempo, setTiempo] = useState(15);
+  const [tiempo, setTiempo] = useState(TIEMPO_PARTIDA);
   const [jugadores, setJugadores] = useState(2);
   const [dificultad, setDificultad] = useState(TEMATICAS[0].dificultad);
   const [visibilidad, setVisibilidad] = useState('publica');
@@ -186,7 +188,8 @@ export default function CrearSala() {
               <p className="cs-label">TIEMPO DE LA PARTIDA</p>
               <div className="cs-opciones cs-cuatro">
                 {TIEMPOS.map((m) => (
-                  <button key={m} className={`cs-opcion ${tiempo === m ? 'activa' : ''}`} onClick={() => setTiempo(m)}>
+                  <button key={m} className={`cs-opcion ${tiempo === m ? 'activa' : ''}`} onClick={() => setTiempo(m)}
+                          disabled={m !== TIEMPO_PARTIDA} title={m !== TIEMPO_PARTIDA ? 'PRÓXIMAMENTE' : undefined}>
                     {m} MIN
                   </button>
                 ))}
