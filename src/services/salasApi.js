@@ -1,4 +1,6 @@
 import { http } from './http';
+import { socket } from './socket';
+import { destinos } from '../config';
 
 
 export const listarSalas = () => http.get('/api/salas');
@@ -40,3 +42,9 @@ export const salasApi = {
   marcarListo,
   desmarcarListo,
 };
+
+/** Salir del lobby (VOLVER): si es el anfitrión, el back cierra la sala y avisa a los demás. */
+export const salirDeSala = (salaId, userId) => http.del(`/api/salas/${salaId}/jugadores/${userId}`);
+
+/** Avisa al back que este jugador está en el lobby con esta conexión (se usa para detectar que cerró la página). */
+export const registrarSesionSala = (salaId, userId) => socket.enviar(destinos.registrarSesionSala(salaId, userId));

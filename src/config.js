@@ -21,4 +21,6 @@ export const topics = {
 
 export const destinos = {
   registrarSesion: (m, u) => `/app/partidas/${m}/jugadores/${u}/sesion`,
+  // lobby: si se cierra la página el back saca al jugador (y si es el anfitrión, cierra la sala)
+  registrarSesionSala: (salaId, u) => `/app/salas/${salaId}/jugadores/${u}/sesion`,
 };

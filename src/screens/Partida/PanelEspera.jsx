@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { detalleSala, marcarListo, desmarcarListo, unirseAEquipo } from '../../services/salasApi';
+import { detalleSala, marcarListo, desmarcarListo, unirseAEquipo, registrarSesionSala, salirDeSala } from '../../services/salasApi';
 import { Sesion } from '../../services/sesion';
 import { topics } from '../../config';
 import { useSubscription } from '../../hooks/useSocket';
@@ -42,6 +42,11 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
     return () => { vivo = false; };
   }, [salaId, aplicarDetalle]);
 
+  // Si cierra la página, el back lo saca de la sala (y si es el anfitrión, la cierra)
+  useEffect(() => {
+    if (salaId && userId) registrarSesionSala(salaId, userId);
+  }, [salaId, userId]);
+
   // Cambios de la sala en vivo (entradas, equipos, listos)
   useSubscription(topics.sala(salaId), aplicarDetalle);
 
@@ -49,6 +54,11 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
   useSubscription(topics.inicio(salaId), (m) => {
     if (m?.estado === 'CUENTA_REGRESIVA') setCuenta(m.segundos ?? 5);
     else if (m?.estado === 'CANCELADA') setCuenta(null);
+    else if (m?.estado === 'CERRADA') {
+      setCuenta(null);
+      setAviso('EL ANFITRIÓN SALIÓ Y CERRÓ LA SALA');
+      setTimeout(() => onVolver?.(), 2500);
+    }
     else if (m?.estado === 'INICIADA' && !iniciadaRef.current) {
       iniciadaRef.current = true;
       setCuenta(0);
@@ -130,8 +140,8 @@ export default function PanelEspera({ salaId, onIniciada, onVolver, onDetalle })
   };
 
   const volver = async () => {
-    // El back no tiene "salir de sala": al menos quitamos el listo
-    if (yoListo) { try { await desmarcarListo(salaId, userId); } catch { /* nada */ } }
+    // Sale de la sala (y de su equipo); si es el anfitrión, el back la cierra y avisa a los demás
+    try { await salirDeSala(salaId, userId); } catch { /* igual vuelve al inicio */ }
     onVolver?.();
   };
 
