@@ -1,0 +1,116 @@
+
+:root {
+  /* Escala de tamaños (u = unidad de cada pantalla; 10px si no existe) */
+  --fs-mini:   max(12px, calc(var(--u, 10px) * 1.05)); /* etiquetas, chips */
+  --fs-texto:  max(14px, calc(var(--u, 10px) * 1.25)); /* texto normal */
+  --fs-medio:  max(15px, calc(var(--u, 10px) * 1.4));  /* enunciados, subtítulos */
+  --fs-boton:  max(12px, calc(var(--u, 10px) * 1.2));  /* botones (Press Start) */
+}
+
+/* PARTIDA (mapa y HUD) */
+:root .pm-sala__nombre { font-size: var(--fs-texto); }
+:root .pm-sala__sub,
+:root .pm-chip,
+:root .pm-llaves,
+:root .pm-tab-panel__txt { font-size: var(--fs-mini); }
+
+:root .pm-ajustes button { font-size: var(--fs-mini); padding-block: max(8px, calc(var(--u, 10px) * 0.8)); }
+
+:root .pm-panel__titulo { font-size: var(--fs-texto); }
+:root .pm-panel__item,
+:root .pm-panel__vacio { font-size: var(--fs-texto); }
+:root .pm-panel__item small { font-size: var(--fs-mini); }
+:root .pm-panel__ayuda { font-size: var(--fs-mini); line-height: 1.8; }
+
+:root .pm-equipo header { font-size: var(--fs-mini); }
+:root .pm-equipo__nombre { font-size: var(--fs-texto); }
+:root .pm-equipo__datos small { font-size: var(--fs-mini); }
+
+:root .pm-feed,
+:root .pm-aviso,
+:root .pm-cargando { font-size: var(--fs-texto); }
+
+/* Modales genéricos de la partida (espera, error, fin, salir) */
+:root .pm-espera p { font-size: var(--fs-texto); line-height: 1.6; }
+:root .pm-espera .pm-espera__titulo { font-size: max(16px, calc(var(--u, 10px) * 1.8)); }
+:root .pm-btn { font-size: var(--fs-boton); }
+:root .pm-clasificacion p { font-size: var(--fs-texto); }
+:root .pm-clasificacion small { font-size: var(--fs-mini); }
+
+/*ACERTIJOS */
+:root [class*="pm-acertijo"] :is(p, li, label, small, input, textarea, select):not([class*="titulo"]) {
+  font-size: var(--fs-texto);
+  line-height: 1.6;
+}
+:root [class*="pm-acertijo"] :is(input, textarea, select) {
+  font-size: var(--fs-medio);
+  padding: max(8px, calc(var(--u, 10px) * 0.7)) max(10px, calc(var(--u, 10px) * 1));
+}
+:root [class*="pm-acertijo"] button:not([class*="cerrar"]) { font-size: var(--fs-boton); }
+:root [class*="pm-acertijo"][class*="enunciado"],
+:root [class*="pm-acertijo"] [class*="enunciado"] {
+  font-size: var(--fs-medio);
+  line-height: 1.7;
+}
+
+/* Desafío Héroe vs Verdugo (popup previo) */
+:root [class*="pm-desafio"] :is(p, li, small):not([class*="titulo"]):not([class*="num"]) {
+  font-size: var(--fs-texto);
+}
+
+/*SALA DE ESPERA*/
+:root .pe-velo { padding: 16px; box-sizing: border-box; }
+
+:root .pe-panel {
+  width: min(calc(var(--u, 10px) * 70), calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding-bottom: 0;                       /* el espacio inferior lo da la barra de botones */
+  gap: max(8px, calc(var(--u, 10px) * 1.1));
+}
+
+/* Botones siempre visibles: se quedan pegados abajo aunque el panel haga scroll */
+:root .pe-botones {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  margin: 0 calc(var(--u, 10px) * -3);     /* ocupa todo el ancho del panel */
+  padding: max(10px, calc(var(--u, 10px) * 1.2)) calc(var(--u, 10px) * 3);
+  background: #1c140e;
+  border-top: 2px solid #6b5233;
+  box-shadow: 0 -10px 14px #1c140e;        /* difumina el contenido que pasa por detrás */
+}
+
+:root .pe-titulo { font-size: max(16px, calc(var(--u, 10px) * 1.9)); }
+:root .pe-codigo__etq { font-size: var(--fs-mini); }
+:root .pe-regla { font-size: var(--fs-texto); }
+:root .pe-cuenta__txt { font-size: var(--fs-mini); }
+:root .pe-contador { font-size: var(--fs-texto); }
+:root .pe-equipo__cab { font-size: var(--fs-texto); }
+:root .pe-jugador { font-size: var(--fs-texto); }
+:root .pe-cambiar { font-size: var(--fs-mini); padding: max(6px, calc(var(--u, 10px) * 0.5)) max(10px, calc(var(--u, 10px) * 1)); }
+:root .pe-motivos { font-size: var(--fs-mini); }
+:root .pe-motivos__titulo { font-size: var(--fs-texto); }
+:root .pe-aviso { font-size: var(--fs-texto); }
+:root .pe-boton { font-size: var(--fs-boton); }
+:root .pe-boton--chico { font-size: var(--fs-mini); }
+
+/* ANUNCIO DE ROL */
+:root .mr-sup { font-size: var(--fs-texto); }
+:root .mr-lema { font-size: var(--fs-medio); }
+:root .mr-texto { font-size: var(--fs-texto); line-height: 1.7; }
+:root .mr-secreto { font-size: var(--fs-mini); }
+:root .mr-boton { font-size: var(--fs-boton); }
+:root .mr-panel { width: min(calc(var(--u, 10px) * 48), calc(100vw - 32px)); }
+
+/* RESUMEN*/
+:root .rs-subtitulo { font-size: var(--fs-medio); }
+:root .rs-caja__etq { font-size: var(--fs-mini); }
+:root .rs-caja__extra { font-size: var(--fs-mini); }
+:root .rs-sello { font-size: var(--fs-mini); }
+:root .rs-jugador__nombre { font-size: var(--fs-texto); }
+:root .rs-jugador__estado { font-size: var(--fs-mini); }
+:root .rs-jugador__tu { font-size: var(--fs-mini); }
+:root .rs-tabla__fila { font-size: var(--fs-texto); }
+:root .rs-boton { font-size: var(--fs-boton); }
+:root .rs-boton small { font-size: var(--fs-mini); }
+:root .rs-error { font-size: var(--fs-texto); }

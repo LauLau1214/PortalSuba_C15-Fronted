@@ -1,0 +1,121 @@
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #0d0a08;
+  color: #f1dfb8;
+  font-family: 'Silkscreen', 'Press Start 2P', monospace;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd, figure {
+  margin: 0;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  image-rendering: pixelated;
+  -webkit-user-drag: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
+
+/* Foco visible solo con teclado (accesibilidad) */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #e3a23b;
+  outline-offset: 2px;
+}
+
+/* Quita el fondo azul/amarillo que pone el autocompletado del navegador */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #e4d1a1;
+  -webkit-box-shadow: 0 0 0 1000px #14120e inset;
+  caret-color: #e8892c;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+::selection {
+  background: #e3a23b;
+  color: #1a120a;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b8862e transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #b8862e;
+  border: 2px solid #1a1511;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #d9a441;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
