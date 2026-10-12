@@ -83,7 +83,8 @@
 .pm-obj-llave .pm-sprite { width: 2cqw; filter: drop-shadow(0 0 0.5cqw #ffd76a); }
 .pm-obj-acertijo.resuelto .pm-sprite { filter: drop-shadow(0 0 0.4cqw #6fd46a); animation: none; }
 .pm-objeto.cercano .pm-sprite { filter: drop-shadow(0 0 0.6cqw #fff) drop-shadow(0 0 1.6cqw #ffd76a); }
-.pm-obj-obstaculo { transform: translate(-50%, -62%); }
+.pm-obj-obstaculo { transform: translate(-50%, -85%); }
+.pm-sprite-pilar { width: 2.2cqw; height: 3.3cqw; opacity: 0.75; }
 
 .pm-burbuja {
   position: absolute;

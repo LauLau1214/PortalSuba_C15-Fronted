@@ -220,7 +220,8 @@ export default function Partida() {
 
   function irAlResumen() {
     navegar(`/resumen/${matchId}`, {
-      state: { resultado, segundosRestantes: timeUp ? 0 : segundos },
+      // Los equipos van aquí porque al terminar la partida el back borra la sala y sus equipos
+      state: { resultado, segundosRestantes: timeUp ? 0 : segundos, equipos },
     });
   }
 
@@ -587,6 +588,7 @@ export default function Partida() {
           miEquipo={equipo}
           rival={equipos.find((e) => e.id !== equipoId && e.miembros.length)}
           miRol={rol}
+          segundos={5} // el back cuenta estos 5 s dentro del reto (RETO_DURACION=25s): quedan 20 s de juego
           onFin={irAlReto}
         />
       )}

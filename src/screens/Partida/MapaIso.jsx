@@ -154,11 +154,15 @@ function Sprite({ tipo, resuelto }) {
       </svg>
     );
   }
+  // OBSTACULO: pilar marrón (capitel, fuste con estrías y base)
   return (
-    <svg className="pm-sprite" viewBox="0 0 8 8" shapeRendering="crispEdges" aria-hidden="true">
-      <path d="M0 1h8v7H0z" fill="#6b4a2b" />
-      <path d="M0 1h8v1H0zM0 4h8v1H0zM0 7h8v1H0z" fill="#4a3220" />
-      <path d="M1 2h1v2H1zM6 5h1v2H6z" fill="#8a6440" />
+    <svg className="pm-sprite pm-sprite-pilar" viewBox="0 0 8 12" shapeRendering="crispEdges" aria-hidden="true">
+      <path d="M0 0h8v2H0zM0 10h8v2H0z" fill="#5a3a1f" />
+      <path d="M0 0h8v1H0zM0 10h8v1H0z" fill="#7a5230" />
+      <path d="M1 2h6v8H1z" fill="#6b4a2b" />
+      <path d="M1 2h2v8H1z" fill="#8a6440" />
+      <path d="M6 2h1v8H6z" fill="#4a3220" />
+      <path d="M4 3h1v6H4z" fill="#4a3220" />
     </svg>
   );
 }

@@ -52,7 +52,7 @@ export default function Resumen() {
   const miEquipoId = Sesion.equipoId;
 
   const [resultado, setResultado] = useState(state?.resultado ?? null);
-  const [equipos, setEquipos] = useState([]);
+  const [equipos, setEquipos] = useState(state?.equipos ?? []);
   const [roles, setRoles] = useState({});
   const [totalAcertijos, setTotalAcertijos] = useState(null);
   const [segRestantes, setSegRestantes] = useState(state?.segundosRestantes ?? null);
@@ -82,9 +82,10 @@ export default function Resumen() {
 
       // Equipos y roles de mi equipo
       try {
-        const eqs = await listarEquipos(matchId);
+        // Si la sala ya se borró (partida terminada) da 404: se quedan los equipos que mandó la partida
+        const eqs = await listarEquipos(matchId).catch(() => null);
         if (!vivo) return;
-        setEquipos(eqs ?? []);
+        if (eqs?.length) setEquipos(eqs);
         if (miEquipoId) {
           const r = await gameplayApi.rolesEquipo(matchId, miEquipoId).catch(() => null);
           if (vivo && r) {
