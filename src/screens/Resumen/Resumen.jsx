@@ -12,7 +12,8 @@ import './Resumen.css';
 const FONDO = '/assets/fondos/Fondo_Resumen.jpeg';
 const FONDO_RESPALDO = '/assets/fondos/Fondo_Lobby.jpeg';
 
-const DURACION_DEFECTO_SEG = 30 * 60;
+// Igual a la duración de la partida en el back (c15.partida.duracion = 5 min)
+const DURACION_DEFECTO_SEG = 5 * 60;
 
 const mmss = (seg) => {
   if (seg == null || Number.isNaN(seg)) return '--:--';

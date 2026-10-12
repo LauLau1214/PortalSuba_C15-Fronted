@@ -67,6 +67,7 @@ export default function Partida() {
 
   const posRef = useRef(posiciones);
   posRef.current = posiciones;
+  const animRef = useRef({}); // userId -> número de la animación en curso; uno nuevo corta la anterior
   const movRef = useRef(false);
   const tAviso = useRef(null);
   const tFeed = useRef(null);
@@ -238,6 +239,13 @@ export default function Partida() {
     const antes = posRef.current[p.userId];
     if (!p.conectado && antes) anunciar(`${nombreDe(p.userId)} SALIÓ DE LA PARTIDA`);
     if (p.conectado && !antes) anunciar(`${nombreDe(p.userId)} ENTRÓ AL MAPA`);
+    const turno = (animRef.current[p.userId] ?? 0) + 1;
+    animRef.current[p.userId] = turno;
+    // Movimiento de varias celdas (click): se anima paso a paso como el propio, en vez de saltar
+    if (p.conectado && antes && p.ruta?.length > 1) {
+      animarCompanero(p.userId, p.ruta, turno);
+      return;
+    }
     setPosiciones((prev) => {
       const next = { ...prev };
       if (p.conectado) next[p.userId] = p;
@@ -245,6 +253,14 @@ export default function Partida() {
       return next;
     });
   });
+
+  async function animarCompanero(id, ruta, turno) {
+    for (const paso of ruta) {
+      if (animRef.current[id] !== turno) return; // llegó otro movimiento o salió del mapa
+      setPosiciones((prev) => (prev[id] ? { ...prev, [id]: { ...prev[id], x: paso.x, y: paso.y } } : prev));
+      await esperar(PASO_MS);
+    }
+  }
 
   // Inventario compartido del equipo
   useSubscription(equipoId ? topics.inventario(matchId, equipoId) : null, (inv) => {
