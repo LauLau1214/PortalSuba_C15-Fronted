@@ -96,18 +96,12 @@ export default function CrearSala() {
   return (
     <div className="cs-root">
       <div className="cs-stage" style={{ backgroundImage: `url(${FONDO})` }}>
-        {/* Esquinas */}
-        <button className="cs-esquina cs-tl" onClick={() => navegar('/home')} title="Volver">
-          <Icono nombre="izquierda" />
+        {/* Esquinas inferiores: volver (izquierda) y cerrar sesión (derecha), con texto para que no confundan */}
+        <button className="cs-esquina cs-bl cs-con-texto" onClick={() => navegar('/home')}>
+          <Icono nombre="izquierda" /> VOLVER
         </button>
-        <button className="cs-esquina cs-tr cs-rojo" onClick={cerrarSesion} title="Cerrar sesión">
-          <Icono nombre="salir" />
-        </button>
-        <button className="cs-esquina cs-bl cs-chica" onClick={() => navegar('/home')} title="Volver">
-          <Icono nombre="flecha" />
-        </button>
-        <button className="cs-esquina cs-br cs-chica cs-rojo" onClick={cerrarSesion} title="Cerrar sesión">
-          <Icono nombre="salir" />
+        <button className="cs-esquina cs-br cs-con-texto cs-rojo" onClick={cerrarSesion}>
+          <Icono nombre="salir" /> CERRAR SESIÓN
         </button>
 
         <h1 className="cs-titulo">CREAR SALA</h1>

@@ -62,6 +62,19 @@
               calc(var(--u) * 0.25) calc(var(--u) * 0.3) 0 rgba(0, 0, 0, 0.55);
 }
 .cs-esquina.cs-chica { width: calc(var(--u) * 2.8); height: calc(var(--u) * 2.8); font-size: calc(var(--u) * 1.1); }
+/* Botón alargado con ícono + texto */
+.cs-esquina.cs-con-texto {
+  width: auto;
+  height: calc(var(--u) * 2.8);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 0.6);
+  padding: 0 calc(var(--u) * 1.1);
+  font-family: var(--cs-fuente);
+  font-size: calc(var(--u) * 0.95);
+  color: var(--cs-crema);
+  white-space: nowrap;
+}
 .cs-tl { top: calc(var(--u) * 1.2); left: calc(var(--u) * 1.2); }
 .cs-tr { top: calc(var(--u) * 1.2); right: calc(var(--u) * 1.2); }
 .cs-bl { bottom: calc(var(--u) * 1.2); left: calc(var(--u) * 1.2); }
