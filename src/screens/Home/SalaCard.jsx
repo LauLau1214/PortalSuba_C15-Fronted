@@ -2,11 +2,11 @@ import Icono from './Iconos';
 
 export const codigoDe = (sala) => sala.id.slice(0, 4).toUpperCase();
 
-export default function SalaCard({ sala, userId, miniatura, onEntrar }) {
+export default function SalaCard({ sala, userId, nombreLider, miniatura, onEntrar }) {
   const llena = sala.jugadoresActuales >= sala.cupoTotal;
   const enPartida = sala.estado === 'EN_PARTIDA';
   const soyAnfitrion = sala.anfitrionId === userId;
-  const lider = soyAnfitrion ? 'TÚ' : `JUGADOR ${sala.anfitrionId.slice(0, 4).toUpperCase()}`;
+  const lider = soyAnfitrion ? 'TÚ' : nombreLider.toUpperCase();
   const libres = sala.cupoTotal - sala.jugadoresActuales;
   const puedeEntrar = soyAnfitrion || (!llena && !enPartida);
 
