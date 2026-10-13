@@ -255,7 +255,8 @@
   border: calc(var(--u) * 0.25) solid #5e5347;
   border-right: 0;
 }
-.pm-tab-panel.abierto { right: calc(var(--u) * 24); }
+/* Pegada al borde izquierdo del panel: usa el mismo ancho (el panel es border-box) */
+.pm-tab-panel.abierto { right: calc(var(--u) * 27); }
 .pm-tab-panel__txt { writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: calc(var(--u) * 0.15); }
 .pm-badge {
   min-width: calc(var(--u) * 1.6);
@@ -270,7 +271,8 @@
   bottom: calc(var(--u) * 7);
   right: 0;
   z-index: 20;
-  width: calc(var(--u) * 24);
+  box-sizing: border-box;
+  width: calc(var(--u) * 27);
   overflow-y: auto;
   padding: calc(var(--u) * 1.4);
   background: rgba(22, 18, 15, 0.95);
