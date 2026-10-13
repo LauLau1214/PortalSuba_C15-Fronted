@@ -10,6 +10,7 @@ export const topics = {
   salas: () => '/topic/salas',                                   // catálogo
   sala: (salaId) => `/topic/salas/${salaId}`,                     // detalle: equipos y listos
   inicio: (salaId) => `/topic/salas/${salaId}/inicio`,            // cuenta regresiva y arranque
+  chat: (salaId) => `/topic/salas/${salaId}/chat`,                // chat de la sala de espera
   timer: (m) => `/topic/partidas/${m}/cronometro`,
   reto: (m) => `/topic/partidas/${m}/reto`,
   resultado: (m) => `/topic/partidas/${m}/resultado`,
